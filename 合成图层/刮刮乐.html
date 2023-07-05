@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .box {
+        width: 600px;
+        height: 400px;
+        font-size: 30px;
+        font-weight: 900;
+        text-align: center;
+        line-height: 400px;
+        position: absolute;
+        left: 0;
+        top: 0;
+      }
+      canvas {
+        position: absolute;
+        left: 0;
+        top: 0;
+        border: 1px solid #ccc;
+        z-index: 1;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- 
+    id：标识元素的唯一性
+    width:画布宽度
+    height:高度
+   -->
+    <div class="box">谢谢惠顾</div>
+    <canvas id="c1" width="600" height="400"></canvas>
+    <script>
+      // 1、找到画布
+      let c1 = document.getElementById("c1");
+      // 2、获取画笔
+      let ctx = c1.getContext("2d");
+      let img = new Image();
+      img.src = "./1000.png";
+      img.onload = function () {
+        ctx.drawImage(img, 0, 0, 600, 400);
+      };
+
+      let isDraw = false;
+      c1.onmousedown = function () {
+        isDraw = true;
+      };
+      c1.onmouseup = function () {
+        isDraw = false;
+      };
+      c1.onmousemove = function (e) {
+        if (isDraw) {
+          let x = e.pageX;
+          let y = e.pageY;
+          ctx.globalCompositeOperation = "destination-out";
+          ctx.arc(x, y, 20, 0, 2 * Math.PI);
+          ctx.fill();
+        }
+      };
+    </script>
+  </body>
+</html>

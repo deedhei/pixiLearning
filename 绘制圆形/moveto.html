@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <!-- 
+    id：标识元素的唯一性
+    width:画布宽度
+    height:高度
+   -->
+    <canvas id="c1" width="600" height="400"></canvas>
+    <script>
+      // 1、找到画布
+      let c1 = document.getElementById("c1");
+      // 2、获取画笔
+      let ctx = c1.getContext("2d");
+      // 圆心x 圆心y 半径 开始的角度  结束的角度 逆时针还是顺时针
+      // 绘制一张脸
+      ctx.beginPath();
+      ctx.arc(300, 200, 50, 0, Math.PI * 2);
+      ctx.moveTo(335, 200);
+
+      // 绘制嘴巴
+      ctx.arc(300, 200, 35, 0, Math.PI);
+      ctx.moveTo(290, 190);
+
+      ctx.arc(285, 190, 5, 0, Math.PI * 2);
+      ctx.moveTo(320, 190);
+      ctx.arc(315, 190, 5, 0, Math.PI * 2);
+      ctx.stroke();
+      ctx.closePath();
+
+      // ctx.fill();
+    </script>
+  </body>
+</html>

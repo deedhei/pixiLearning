@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <!-- 
+    id：标识元素的唯一性
+    width:画布宽度
+    height:高度
+   -->
+    <canvas id="c1" width="600" height="400"></canvas>
+    <script>
+      // 1、找到画布
+      let c1 = document.getElementById("c1");
+      // 2、获取画笔
+      let ctx = c1.getContext("2d");
+      let img = new Image();
+      img.src = "./1000.png";
+      img.onload = function () {
+        ctx.drawImage(img, 0, 0, 600, 400);
+        let imageData = ctx.getImageData(0, 0, 600, 400);
+        for (let i = 0; i < imageData.data.length; i++) {
+          // console.log(imageData.data[i]);
+          let avg =
+            (imageData.data[i] +
+              imageData.data[i + 1] +
+              imageData.data[i + 2]) /
+            3;
+          imageData.data[i] = avg;
+          imageData.data[i + 1] = avg;
+          imageData.data[i + 2] = avg;
+        }
+        ctx.putImageData(imageData, 0, 0);
+      };
+    </script>
+  </body>
+</html>

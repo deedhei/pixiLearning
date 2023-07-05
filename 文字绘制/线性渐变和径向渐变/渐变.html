@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <!-- 
+    id：标识元素的唯一性
+    width:画布宽度
+    height:高度
+   -->
+    <canvas id="c1" width="600" height="400"></canvas>
+    <script>
+      // 1、找到画布
+      let c1 = document.getElementById("c1");
+      // 2、获取画笔
+      let ctx = c1.getContext("2d");
+      const gradient = ctx.createConicGradient(100, 200, 400, 500);
+      gradient.addColorStop(0, "orange");
+      gradient.addColorStop(1, "black");
+      ctx.fillStyle = gradient;
+      ctx.fillRect(100, 200, 300, 300);
+    </script>
+  </body>
+</html>

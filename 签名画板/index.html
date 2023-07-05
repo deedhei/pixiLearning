@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <canvas id="c1" width="800" height="600"></canvas>
+    <hr />
+    <button id="boldBtn" type="button">粗线条</button>
+    <button id="thinBtn" type="button">细线条</button>
+    <button id="saveBtn" type="button">保存签名</button>
+    <input type="color" name="" id="color" value="" />
+    <button id="clearBtn" type="button">橡皮擦</button>
+    <button id="nullBtn">清除画布</button>
+    <script>
+      let canvas = document.querySelector("#c1");
+      let ctx = canvas.getContext("2d");
+      ctx.lineJoin = "round";
+      ctx.lineCap = "round";
+      let boldBtn = document.querySelector("#boldBtn");
+      let thinBtn = document.querySelector("#thinBtn");
+      let saveBtn = document.querySelector("#saveBtn");
+      let colorBtn = document.querySelector("#color");
+      let clearBtn = document.querySelector("#clearBtn");
+      let nullBtn = document.querySelector("#nullBtn");
+
+      // 设置允许绘制的变量
+      let isDraw = false;
+      canvas.onmousedown = function () {
+        isDraw = true;
+        ctx.beginPath();
+        let x = event.pageX - canvas.offsetLeft;
+        let y = event.pageY - canvas.offsetTop;
+        ctx.moveTo(x, y);
+      };
+
+      canvas.onmouseleave = function () {
+        isDraw = false;
+        ctx.closePath();
+      };
+
+      canvas.onmouseup = function () {
+        isDraw = false;
+        ctx.closePath();
+      };
+      canvas.onmousemove = function () {
+        if (isDraw) {
+          let x = event.pageX - canvas.offsetLeft;
+          let y = event.pageY - canvas.offsetTop;
+          ctx.lineTo(x, y);
+          ctx.stroke();
+        }
+      };
+      boldBtn.onclick = function () {
+        ctx.lineWidth = 20;
+      };
+      thinBtn.onclick = function () {
+        ctx.lineWidth = 5;
+      };
+      clearBtn.onclick = function () {
+        ctx.globalCompositeOperation = "destination-out";
+        ctx.lineWidth = 30;
+      };
+      colorBtn.onclick = function () {
+        ctx.strokeStyle = colorBtn.value;
+      };
+      nullBtn.onclick = function () {
+        ctx.clearRect(0, 0, 800, 600);
+      };
+      saveBtn.onclick = function () {
+        let urlData = canvas.toDataURL();
+        let img = new Image();
+        img.src = urlData;
+        let download = document.createElement("a");
+        download.setAttribute("download", "签名");
+        download.href = urlData;
+        download.click();
+      };
+    </script>
+  </body>
+</html>
